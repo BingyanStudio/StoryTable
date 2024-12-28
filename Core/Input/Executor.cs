@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using StoryParser.Core.Util;
 using StoryParser.Core.Statement;
 

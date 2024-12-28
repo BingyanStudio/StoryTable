@@ -1,6 +1,7 @@
+using System;
+using System.Linq;
 using StoryParser.Core.Statement;
 using System.Text.RegularExpressions;
-
 namespace StoryParser.Extension
 {
     public class Say : IStatement, IDispatcher

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using StoryParser.Core.Util;
 
 namespace StoryParser.Core.Statement

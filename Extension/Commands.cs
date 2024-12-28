@@ -1,10 +1,24 @@
+using StoryParser.Core.Input;
+
 namespace StoryParser.Extension
 {
-    public static partial class Commands
+    public static class Commands
     {
-        public static partial void Menu(string content, int target);
-        public static partial void Say(string? character, string? sprite, string dialogue);
-        public static partial object GetValue(string key);
-        public static partial void SetValue(string key, int value);
+        public static void Menu(string content, int target)
+        {
+
+        }
+        public static void Say(string character, string sprite, string dialogue)
+        {
+
+        }
+        public static object GetValue(string key)
+        {
+            return new object();
+        }
+        public static void SetValue(string key, int value)
+        {
+
+        }
     }
 }
