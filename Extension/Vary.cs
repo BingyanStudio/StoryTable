@@ -4,9 +4,9 @@ using StoryParser.Core.Statement;
 
 namespace StoryParser.Extension
 {
-    public class Var : IStatement, IDispatcher
+    public class Vary : IStatement, IDispatcher
     {
-        public Var(string operation, string key, string var1, string var2)
+        public Vary(string operation, string key, string var1, string var2)
         {
             this.operation = operation;
             this.key = key;
@@ -33,7 +33,7 @@ namespace StoryParser.Extension
                 throw new ArgumentException(string.Format("{0}数组长度有误", parameters), nameof(parameters));
             if (parameters[2] != "ADD" || parameters[2] != "SUB" || parameters[2] != "MUL" || parameters[2] != "DIV")
                 throw new ArgumentException(string.Format("{0}操作声明有误", parameters[2]));
-            return new Var(parameters[1], parameters[2], parameters[3], parameters[4]);
+            return new Vary(parameters[1], parameters[2], parameters[3], parameters[4]);
         }
         private readonly string operation, key, var1, var2;
     }

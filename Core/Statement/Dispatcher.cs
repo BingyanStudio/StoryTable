@@ -11,7 +11,7 @@ namespace StoryParser.Core.Statement
             { "IF", new If(new(), 0) },
             { "MENU", new Menu("", 0) },
             { "SAY", new Say(null, null, "") },
-            { "VARY", new Var("", "", "", "") }
+            { "VARY", new Vary("", "", "", "") }
         };
         /// <summary>
         /// 注册调度器
