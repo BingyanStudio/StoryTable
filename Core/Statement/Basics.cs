@@ -7,7 +7,7 @@ namespace StoryParser.Core.Statement
     {
         public void Execute()
         {
-            Executor.Pause();
+            Executor.Pause = true;
             Executor.Complete();
         }
         public IStatement Dispatch(string[] parameters) => new Pause();
@@ -21,7 +21,7 @@ namespace StoryParser.Core.Statement
         public void Execute()
         {
             Executor.EndWith(value);
-            Executor.Pause();
+            Executor.Pause = true;
             Executor.Complete();
         }
         public IStatement Dispatch(string[] parameters)

@@ -8,8 +8,10 @@ namespace StoryParser.Core.Input
     public static class Executor
     {
         public static Locator Position { get; private set; }
-        private static bool pause;
         private static int count;
+        public static bool Processing => count > 0;
+        public static bool Skip { get; set; }
+        public static bool Pause { get; set; }
         /// <summary>
         /// 开始处理文件
         /// </summary>
@@ -40,6 +42,8 @@ namespace StoryParser.Core.Input
         public static event Action<Locator>? LineProcessed;
         public static Line CurrentLine =>
             IntermediateFile.Current[Position.FileName][Position.LineIndex];
+        public static Statement.File CurrentFile =>
+            IntermediateFile.Current[Position.FileName];
         /// <summary>
         /// 定位到指定行数
         /// </summary>
@@ -65,30 +69,27 @@ namespace StoryParser.Core.Input
         /// 语句执行完毕
         /// </summary>
         public static void Complete() => count--;
-        /// <summary>
-        /// 暂停语句执行,等待用户输入（再次调用<see cref="Execute"/>）
-        /// </summary>
-        public static void Pause() => pause = true;
         internal static void EndWith(int value) => End?.Invoke(value);
         public async static void Execute()
         {
-            if (Position.LineIndex == CurrentLine.Length)
+            if (Position.LineIndex == CurrentFile.Length)
             {
                 FileProcessed?.Invoke();
                 return;
             }
             if (Position.LineIndex == 0) FileProcessing?.Invoke();
             Executing?.Invoke();
-            pause = false;
-            while (!pause) await Process();
+            Pause = false;
+            while (!Pause) await Process();
             Executed?.Invoke();
         }
         private async static Task Process()
         {
             LineProcessing?.Invoke(Position);
             Launch(CurrentLine.Length);
+            Skip = false;
             CurrentLine.Execute();
-            await Task.Run(() => count == 0);
+            while (Processing) await Task.Delay(10);
             LineProcessed?.Invoke(Position);
             NextLine();
         }
