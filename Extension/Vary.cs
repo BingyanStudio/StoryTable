@@ -1,17 +1,22 @@
-using System;
-
 namespace StoryParser
 {
-    public class Vary : IStatement, IDispatcher
+    [Parse("VARY")]
+    public class Vary : Statement
     {
-        public Vary(string operation, string key, string var1, string var2)
+        public Vary(string[] args) : base(args)
         {
-            this.operation = operation;
-            this.key = key;
-            this.var1 = var1;
-            this.var2 = var2;
+            if (args.Length != 5)
+                throw new ArgumentException(string.Format("{0}数组长度有误", args), nameof(args));
+            if (args[2] != "ADD" || args[2] != "SUB" || args[2] != "MUL" || args[2] != "DIV")
+                throw new ArgumentException(string.Format("{0}操作声明有误", args[2]));
+
+            operation = args[1];
+            key = args[2];
+            var1 = args[3];
+            var2 = args[4];
         }
-        public void Execute()
+
+        public override void Execute()
         {
             float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.GetValue<float>(var1);
             float v2 = float.TryParse(var1, out float f2) ? f2 : Provider.GetValue<float>(var2);
@@ -25,14 +30,7 @@ namespace StoryParser
             }));
             Executor.Complete();
         }
-        public IStatement Dispatch(string[] parameters)
-        {
-            if (parameters.Length != 5)
-                throw new ArgumentException(string.Format("{0}数组长度有误", parameters), nameof(parameters));
-            if (parameters[2] != "ADD" || parameters[2] != "SUB" || parameters[2] != "MUL" || parameters[2] != "DIV")
-                throw new ArgumentException(string.Format("{0}操作声明有误", parameters[2]));
-            return new Vary(parameters[1], parameters[2], parameters[3], parameters[4]);
-        }
+
         private readonly string operation, key, var1, var2;
     }
 }

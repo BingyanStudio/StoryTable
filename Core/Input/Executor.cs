@@ -22,7 +22,7 @@ namespace StoryParser
         /// <summary>
         /// 执行了End语句
         /// </summary>
-        public static event Action<int>? End;
+        public static event Action<string>? End;
         /// <summary>
         /// 开始执行一系列语句
         /// </summary>
@@ -68,7 +68,7 @@ namespace StoryParser
         /// 语句执行完毕
         /// </summary>
         public static void Complete() => count--;
-        internal static void EndWith(int value) => End?.Invoke(value);
+        internal static void EndWith(string value) => End?.Invoke(value);
         public async static void Execute()
         {
             if (Position.LineIndex == CurrentFile.Length)

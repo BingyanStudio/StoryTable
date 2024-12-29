@@ -2,33 +2,33 @@ using System;
 
 namespace StoryParser
 {
-    public class Pause : IStatement, IDispatcher
+    public class Pause : Statement
     {
-        public void Execute()
+        public Pause(string[] args) : base(args) { }
+
+        public override void Execute()
         {
             Executor.Pause = true;
             Executor.Complete();
-        }
-        public IStatement Dispatch(string[] parameters) => new Pause();
+        }        // public IStatement Dispatch(string[] parameters) => new Pause();
     }
-    public class End : IStatement, IDispatcher
+
+    [Parse("END")]
+    public class End : Statement
     {
-        public End(int value)
+        private readonly string result;
+
+        public End(string[] args) : base(args)
         {
-            this.value = value;
+            if (args.Length > 0) result = args[0];
+            else result = string.Empty;
         }
-        public void Execute()
+
+        public override void Execute()
         {
-            Executor.EndWith(value);
+            Executor.EndWith(result);
             Executor.Pause = true;
             Executor.Complete();
         }
-        public IStatement Dispatch(string[] parameters)
-        {
-            if (parameters.Length != 2)
-                throw new ArgumentException(string.Format("{0}数组长度有误", parameters), nameof(parameters));
-            return new End(int.Parse(parameters[1]));
-        }
-        private readonly int value;
     }
 }

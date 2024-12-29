@@ -2,20 +2,15 @@ using System;
 
 namespace StoryParser
 {
-    public class Menu : IStatement, IDispatcher
+    [Parse("MENU")]
+    public class Menu : Statement
     {
-        public Menu(string content, int target)
+        public Menu(string[] args) : base(args)
         {
-            this.content = content;
-            this.target = target;
+            content = args[1];
+            target = int.Parse(args[2]);
         }
-        public void Execute() => Provider.Menu(content, target);
-        public IStatement Dispatch(string[] parameters)
-        {
-            if (parameters.Length != 3)
-                throw new ArgumentException(string.Format("{0}数组长度有误", parameters), nameof(parameters));
-            return new Menu(parameters[1], int.Parse(parameters[2]));
-        }
+        public override void Execute() => Commands.Menu(content, target);
         private readonly string content;
         private readonly int target;
     }
