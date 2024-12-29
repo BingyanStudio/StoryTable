@@ -9,7 +9,7 @@ namespace StoryParser
             this.content = content;
             this.target = target;
         }
-        public void Execute() => Commands.Menu(content, target);
+        public void Execute() => Provider.Menu(content, target);
         public IStatement Dispatch(string[] parameters)
         {
             if (parameters.Length != 3)

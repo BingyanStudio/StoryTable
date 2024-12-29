@@ -17,8 +17,8 @@ namespace StoryParser
             var matches = Regex.Matches(dialogue, @"(?<=\{)[^}]*(?=\})").Cast<Match>().ToList();
             string copy = dialogue;
             foreach (var match in matches)
-                copy = copy.Replace("{" + match + "}", Commands.GetValue(match.ToString()).ToString());
-            Commands.Say(character, sprite, copy);
+                copy = copy.Replace("{" + match + "}", Provider.GetValue<string>(match.ToString()));
+            Provider.Say(character ?? "", sprite ?? "", copy);
         }
         public IStatement Dispatch(string[] parameters)
         {

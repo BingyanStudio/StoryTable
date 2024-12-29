@@ -48,9 +48,9 @@ namespace StoryParser
         private bool Meet(Condition condition)
         {
             if (!float.TryParse(condition.Var1, out float v1))
-                v1 = float.Parse(Commands.GetValue(condition.Var1).ToString()!);
+                v1 = Provider.GetValue<float>(condition.Var1);
             if (!float.TryParse(condition.Var2, out float v2))
-                v2 = float.Parse(Commands.GetValue(condition.Var2).ToString()!);
+                v2 = Provider.GetValue<float>(condition.Var2);
             return condition.Signal switch
             {
                 '>' => v1 - v2 > 0,

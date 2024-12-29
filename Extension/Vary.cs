@@ -13,9 +13,9 @@ namespace StoryParser
         }
         public void Execute()
         {
-            float v1 = float.TryParse(var1, out float f1) ? f1 : float.Parse(Commands.GetValue(var1).ToString()!);
-            float v2 = float.TryParse(var1, out float f2) ? f2 : float.Parse(Commands.GetValue(var2).ToString()!);
-            Commands.SetValue(key, (int)(.5f + operation switch
+            float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.GetValue<float>(var1);
+            float v2 = float.TryParse(var1, out float f2) ? f2 : Provider.GetValue<float>(var2);
+            Provider.SetValue(key, (int)(.5f + operation switch
             {
                 "ADD" => v1 + v2,
                 "SUB" => v1 - v2,
