@@ -1,18 +1,20 @@
-using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace StoryParser
 {
-    public class Say : IStatement, IDispatcher
+    public class Say : Statement
     {
-        public Say(string? character, string? sprite, string dialogue)
+        public Say(string[] args) : base(args)
         {
-            this.character = character;
-            this.sprite = sprite;
-            this.dialogue = dialogue;
+            if (args.Length != 4)
+                throw new ArgumentException($"数组长度错误，应为 4, 实为 {args.Length}", nameof(args));
+
+            character = args[1];
+            sprite = args[2];
+            dialogue = args[3];
         }
-        public void Execute()
+
+        public override void Execute()
         {
             var matches = Regex.Matches(dialogue, @"(?<=\{)[^}]*(?=\})").Cast<Match>().ToList();
             string copy = dialogue;
@@ -20,12 +22,7 @@ namespace StoryParser
                 copy = copy.Replace("{" + match + "}", Commands.GetValue(match.ToString()).ToString());
             Commands.Say(character, sprite, copy);
         }
-        public IStatement Dispatch(string[] parameters)
-        {
-            if (parameters.Length != 4)
-                throw new ArgumentException(string.Format("{0}数组长度有误", parameters), nameof(parameters));
-            return new Say(parameters[1], parameters[2], parameters[3]);
-        }
+
         private readonly string? character, sprite;
         private readonly string dialogue;
     }

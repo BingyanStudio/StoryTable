@@ -9,9 +9,14 @@ namespace StoryParser
             statements = new();
             if (line[0] == Separators.Comment) return;
             foreach (string statement in line.Split(Separators.Line))
-                statements.Add(Dispatcher.Execute(statement.Split(Separators.Statement)));
+            {
+                var s = StatementFactory.Create(statement);
+                if (s != null) statements.Add(s);
+            }
+            // statements.Add(Dispatcher.Execute(statement.Split(Separators.Statement)));
         }
-        private List<IStatement> statements;
+
+        private List<Statement> statements;
         public int Length => statements.Count;
         internal void Execute() => statements.ForEach(s => s.Execute());
     }

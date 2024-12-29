@@ -1,37 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace StoryParser
 {
-    public class If : IStatement, IDispatcher
+    [Parse("IF")]
+    public class If : Statement
     {
-        public If(List<Condition> conditions, int target)
+        public If(string[] args) : base(args)
         {
-            this.conditions = conditions;
-            this.target = target;
+            if (args.Length != 3)
+                throw new ArgumentException(string.Format("{0}数组长度有误", args), nameof(args));
+
+            conditions = new();
+            char[] signals = new char[] { '>', '<', '=' };
+            foreach (var info in args[1].Split(Separators.Parameter))
+            {
+                string[] infos = info.Split(signals);
+                if (infos.Length != 2)
+                    throw new ArgumentException(string.Format("{0}条件声明有误", args), nameof(args));
+                conditions.Add(new Condition(infos[0], info[info.IndexOfAny(signals)], infos[1]));
+            }
         }
-        public void Execute()
+
+        public override void Execute()
         {
             if (conditions.Count == 0 || conditions.All(Meet))
                 Executor.Locate(target - 1);
             Executor.Complete();
         }
-        public IStatement Dispatch(string[] parameters)
-        {
-            if (parameters.Length != 3)
-                throw new ArgumentException(string.Format("{0}数组长度有误", parameters), nameof(parameters));
-            List<Condition> conditions = new();
-            char[] signals = new char[] { '>', '<', '=' };
-            foreach (var info in parameters[1].Split(Separators.Parameter))
-            {
-                string[] infos = info.Split(signals);
-                if (infos.Length != 2)
-                    throw new ArgumentException(string.Format("{0}条件声明有误", parameters), nameof(parameters));
-                conditions.Add(new Condition(infos[0], info[info.IndexOfAny(signals)], infos[1]));
-            }
-            return new If(conditions, int.Parse(parameters[2]));
-        }
+
         private readonly List<Condition> conditions;
         private readonly int target;
         public readonly struct Condition
