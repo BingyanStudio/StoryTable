@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace StoryParser
 {
+    [Parse("SAY")]
     public class Say : Statement
     {
         public Say(string[] args) : base(args)
