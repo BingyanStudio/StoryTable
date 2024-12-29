@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using StoryParser.Extension;
 
-namespace StoryParser.Core.Statement
+namespace StoryParser
 {
     public static class Dispatcher
     {

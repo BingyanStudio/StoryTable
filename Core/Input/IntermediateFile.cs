@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Text;
 
-namespace StoryParser.Core.Input
+namespace StoryParser
 {
     public static class IntermediateFile
     {
@@ -12,7 +12,7 @@ namespace StoryParser.Core.Input
         {
             Current = new();
         }
-        public static Dictionary<string, Statement.File> Current;
+        public static Dictionary<string, File> Current;
         public static event Action? Loading;
         public static event Action? Loaded;
         /// <summary>

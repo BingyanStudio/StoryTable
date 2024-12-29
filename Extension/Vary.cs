@@ -1,8 +1,6 @@
 using System;
-using StoryParser.Core.Input;
-using StoryParser.Core.Statement;
 
-namespace StoryParser.Extension
+namespace StoryParser
 {
     public class Vary : IStatement, IDispatcher
     {

@@ -1,7 +1,6 @@
 using System;
-using StoryParser.Core.Statement;
 
-namespace StoryParser.Extension
+namespace StoryParser
 {
     public class Menu : IStatement, IDispatcher
     {

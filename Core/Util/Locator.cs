@@ -1,4 +1,4 @@
-namespace StoryParser.Core.Util
+namespace StoryParser
 {
     public readonly struct Locator
     {

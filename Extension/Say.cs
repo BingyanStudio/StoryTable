@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using StoryParser.Core.Statement;
 using System.Text.RegularExpressions;
-namespace StoryParser.Extension
+
+namespace StoryParser
 {
     public class Say : IStatement, IDispatcher
     {

@@ -1,9 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using StoryParser.Core.Util;
-using StoryParser.Core.Statement;
 
-namespace StoryParser.Core.Input
+namespace StoryParser
 {
     public static class Executor
     {
@@ -42,7 +40,7 @@ namespace StoryParser.Core.Input
         public static event Action<Locator>? LineProcessed;
         public static Line CurrentLine =>
             IntermediateFile.Current[Position.FileName][Position.LineIndex];
-        public static Statement.File CurrentFile =>
+        public static File CurrentFile =>
             IntermediateFile.Current[Position.FileName];
         /// <summary>
         /// 定位到指定行数

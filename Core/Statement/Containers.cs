@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using StoryParser.Core.Util;
 
-namespace StoryParser.Core.Statement
+namespace StoryParser
 {
     public class Line
     {

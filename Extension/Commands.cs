@@ -1,6 +1,4 @@
-using StoryParser.Core.Input;
-
-namespace StoryParser.Extension
+namespace StoryParser
 {
     public static class Commands
     {

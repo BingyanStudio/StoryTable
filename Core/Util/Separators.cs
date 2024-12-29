@@ -1,4 +1,4 @@
-namespace StoryParser.Core.Util
+namespace StoryParser
 {
     public static class Separators
     {

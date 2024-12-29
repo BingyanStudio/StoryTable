@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StoryParser.Core.Input;
-using StoryParser.Core.Statement;
-using StoryParser.Core.Util;
 
-namespace StoryParser.Extension
+namespace StoryParser
 {
     public class If : IStatement, IDispatcher
     {

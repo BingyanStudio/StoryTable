@@ -1,7 +1,6 @@
 using System;
-using StoryParser.Core.Input;
 
-namespace StoryParser.Core.Statement
+namespace StoryParser
 {
     public class Pause : IStatement, IDispatcher
     {

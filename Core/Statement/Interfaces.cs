@@ -1,4 +1,4 @@
-namespace StoryParser.Core.Statement
+namespace StoryParser
 {
     /// <summary>
     /// 自定义语句应当实现该接口，请务必编写相应的调度器<see cref="IDispatcher"/>
