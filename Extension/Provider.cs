@@ -9,7 +9,7 @@ namespace StoryParser
         private static IDataProvider? dataProvider;
         public static void SetData(IDataProvider provider) => dataProvider = provider;
         public static T GetValue<T>(string key) => dataProvider!.GetValue<T>(key);
-        public static void SetValue<T>(string key, T value) => dataProvider!.SetValue<T>(key, value);
+        public static void SetValue<T>(string key, T value) => dataProvider!.SetValue(key, value);
         private static IFileProvider? fileProvider;
         public static void SetFile(IFileProvider provider) => fileProvider = provider;
     }
