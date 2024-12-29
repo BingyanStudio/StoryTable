@@ -10,7 +10,7 @@ namespace StoryParser
             content = args[1];
             target = int.Parse(args[2]);
         }
-        public override void Execute() => Commands.Menu(content, target);
+        public override void Execute() => Provider.Menu(content, target);
         private readonly string content;
         private readonly int target;
     }

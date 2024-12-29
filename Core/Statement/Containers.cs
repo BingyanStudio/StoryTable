@@ -13,7 +13,6 @@ namespace StoryParser
                 var s = StatementFactory.Create(statement);
                 if (s != null) statements.Add(s);
             }
-            // statements.Add(Dispatcher.Execute(statement.Split(Separators.Statement)));
         }
 
         private List<Statement> statements;

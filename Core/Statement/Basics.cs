@@ -10,7 +10,7 @@ namespace StoryParser
         {
             Executor.Pause = true;
             Executor.Complete();
-        }        // public IStatement Dispatch(string[] parameters) => new Pause();
+        }
     }
 
     [Parse("END")]
