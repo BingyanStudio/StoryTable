@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace StoryParser
@@ -8,8 +7,17 @@ namespace StoryParser
     {
         public Locator Position { get; private set; }
         private int count;
+        /// <summary>
+        /// 正在处理语句中
+        /// </summary>
         public bool Processing => count > 0;
-        public bool Skip { get; set; }
+        /// <summary>
+        /// 立刻执行完当前语句
+        /// </summary>
+        public bool Skip { get; private set; }
+        /// <summary>
+        /// 暂停等待用户输入
+        /// </summary>
         public bool Pause { get; set; }
         /// <summary>
         /// 开始处理文件
@@ -71,6 +79,11 @@ namespace StoryParser
         internal void EndWith(string value) => End?.Invoke(value);
         public async void Execute()
         {
+            if (count > 0)
+            {
+                Skip = true;
+                return;
+            }
             if (Position.LineIndex == CurrentFile.Length)
             {
                 FileProcessed?.Invoke();
@@ -78,7 +91,7 @@ namespace StoryParser
             }
             if (Position.LineIndex == 0) FileProcessing?.Invoke();
             Executing?.Invoke();
-            Pause = false;
+            Pause = Skip = false;
             while (!Pause) await Process();
             Executed?.Invoke();
         }
