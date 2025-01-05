@@ -15,13 +15,13 @@ namespace StoryParser
             dialogue = args[3];
         }
 
-        public override void Execute()
+        public override void Execute(Executor executor)
         {
             var matches = Regex.Matches(dialogue, @"(?<=\{)[^}]*(?=\})").Cast<Match>().ToList();
             string copy = dialogue;
             foreach (var match in matches)
                 copy = copy.Replace("{" + match + "}", Provider.GetValue<string>(match.ToString()));
-            Provider.Say(character ?? "", sprite ?? "", copy);
+            Provider.Say(character ?? "", sprite ?? "", copy, executor);
         }
 
         private readonly string? character, sprite;

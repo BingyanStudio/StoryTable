@@ -6,10 +6,10 @@ namespace StoryParser
     {
         public Pause(string[] args) : base(args) { }
 
-        public override void Execute()
+        public override void Execute(Executor executor)
         {
-            Executor.Pause = true;
-            Executor.Complete();
+            executor.Pause = true;
+            executor.Complete();
         }
     }
 
@@ -24,11 +24,11 @@ namespace StoryParser
             else result = string.Empty;
         }
 
-        public override void Execute()
+        public override void Execute(Executor executor)
         {
-            Executor.EndWith(result);
-            Executor.Pause = true;
-            Executor.Complete();
+            executor.EndWith(result);
+            executor.Pause = true;
+            executor.Complete();
         }
     }
 }

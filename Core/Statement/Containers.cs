@@ -17,7 +17,7 @@ namespace StoryParser
 
         private List<Statement> statements;
         public int Length => statements.Count;
-        internal void Execute() => statements.ForEach(s => s.Execute());
+        internal void Execute(Executor executor) => statements.ForEach(s => s.Execute(executor));
     }
     public class File
     {

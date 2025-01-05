@@ -16,7 +16,7 @@ namespace StoryParser
             var2 = args[4];
         }
 
-        public override void Execute()
+        public override void Execute(Executor executor)
         {
             float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.GetValue<float>(var1);
             float v2 = float.TryParse(var1, out float f2) ? f2 : Provider.GetValue<float>(var2);
@@ -28,7 +28,7 @@ namespace StoryParser
                 "DIV" => v1 / v2,
                 _ => 0
             }));
-            Executor.Complete();
+            executor.Complete();
         }
 
         private readonly string operation, key, var1, var2;

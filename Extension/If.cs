@@ -19,11 +19,11 @@ namespace StoryParser
             }
         }
 
-        public override void Execute()
+        public override void Execute(Executor executor)
         {
             if (conditions.Count == 0 || conditions.All(Meet))
-                Executor.Locate(target - 1);
-            Executor.Complete();
+                executor.Locate(target - 1);
+            executor.Complete();
         }
 
         private readonly List<Condition> conditions;

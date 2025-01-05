@@ -4,6 +4,6 @@ namespace StoryParser
     {
         public Statement(string[] args) { }
 
-        public abstract void Execute();
+        public abstract void Execute(Executor executor);
     }
 }

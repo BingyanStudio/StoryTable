@@ -4,8 +4,8 @@ namespace StoryParser
     {
         private static IVisualProvider? visualProvider;
         public static void SetVisual(IVisualProvider provider) => visualProvider = provider;
-        public static void Menu(string content, int target) => visualProvider!.Menu(content, target);
-        public static void Say(string character, string sprite, string dialogue) => visualProvider!.Say(character, sprite, dialogue);
+        public static void Menu(string content, int target, Executor executor) => visualProvider!.Menu(content, target, executor);
+        public static void Say(string character, string sprite, string dialogue, Executor executor) => visualProvider!.Say(character, sprite, dialogue, executor);
         private static IDataProvider? dataProvider;
         public static void SetData(IDataProvider provider) => dataProvider = provider;
         public static T GetValue<T>(string key) => dataProvider!.GetValue<T>(key);
@@ -20,8 +20,8 @@ namespace StoryParser
     /// </summary>
     public interface IVisualProvider
     {
-        void Menu(string content, int target);
-        void Say(string character, string sprite, string dialogue);
+        void Menu(string content, int target, Executor executor);
+        void Say(string character, string sprite, string dialogue, Executor executor);
     }
     /// <summary>
     /// 提供数据存取相关的方法
