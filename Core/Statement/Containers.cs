@@ -7,8 +7,8 @@ namespace StoryParser
         internal Line(string line)
         {
             statements = new();
-            if (line[0] == Separators.Comment) return;
-            foreach (string statement in line.Split(Separators.Statement))
+            if (line[0] == Separators.COMMENT) return;
+            foreach (string statement in line.Split(Separators.STATEMENT))
             {
                 var s = StatementFactory.Create(statement);
                 if (s != null) statements.Add(s);
@@ -21,7 +21,7 @@ namespace StoryParser
     }
     public class File
     {
-        private readonly List<Line> lines = new() { new Line(Separators.Comment.ToString()) };
+        private readonly List<Line> lines = new() { new Line(Separators.COMMENT.ToString()) };
         public int Length => lines.Count;
         internal void AddLine(string line) => lines.Add(new Line(line));
         public Line this[int index] => lines[index];

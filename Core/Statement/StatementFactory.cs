@@ -23,7 +23,7 @@ namespace StoryParser
 
         public static Statement? Create(string line)
         {
-            var tokens = line.Split(Separators.Statement);
+            var tokens = line.Split(Separators.STATEMENT);
             if (tokens.Length == 0) throw new ArgumentException("Invalid Statement");
             if (statementTypes.TryGetValue(tokens[0], out var type))
                 if (tokens.Length > 1) return Activator.CreateInstance(type, tokens[1..]) as Statement;

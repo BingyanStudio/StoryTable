@@ -10,7 +10,7 @@ namespace StoryParser
 
             conditions = new();
             char[] signals = new char[] { '>', '<', '=' };
-            foreach (var info in args[1].Split(Separators.Parameter))
+            foreach (var info in args[1].Split(Separators.PARAMETER))
             {
                 string[] infos = info.Split(signals);
                 if (infos.Length != 2)
