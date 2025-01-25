@@ -1,23 +1,14 @@
-using System.Collections.Generic;
-
 namespace StoryParser
 {
     public class Line
     {
         internal Line(string line)
         {
-            statements = new();
             if (line[0] == Separators.COMMENT) return;
-            foreach (string statement in line.Split(Separators.STATEMENT))
-            {
-                var s = StatementFactory.Create(statement);
-                if (s != null) statements.Add(s);
-            }
+            statement = StatementFactory.Create(line);
         }
-
-        private readonly List<Statement> statements;
-        public int Length => statements.Count;
-        internal void Execute(Executor executor) => statements.ForEach(s => s.Execute(executor));
+        private readonly Statement? statement;
+        internal void Execute(Executor executor) => statement?.Execute(executor);
     }
     public class File
     {

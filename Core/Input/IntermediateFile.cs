@@ -13,10 +13,11 @@ namespace StoryParser
             Current = new();
             Tags = new();
         }
-        public static Dictionary<string, File> Current;
-        public static Dictionary<string, Locator> Tags;
+        public static readonly Dictionary<string, File> Current;
+        public static readonly Dictionary<string, Locator> Tags;
         public static event Action? Loading;
         public static event Action? Loaded;
+        private static readonly char[] activeSigns = new[] { 'Y', 'y', '是' };
         /// <summary>
         /// 异步读取指定中间文件
         /// </summary>

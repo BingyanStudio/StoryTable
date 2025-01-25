@@ -75,7 +75,6 @@ namespace StoryParser
         public void Locate(Locator position) => Position = position;
         private void NextLine()
             => Locate(Position.FileName, Position.LineIndex + 1);
-        private void Launch(int count) => this.count = count;
         /// <summary>
         /// 语句执行完毕
         /// </summary>
@@ -102,7 +101,7 @@ namespace StoryParser
         private async Task Process()
         {
             LineProcessing?.Invoke(Position);
-            Launch(CurrentLine.Length);
+            count++;
             Skip = false;
             CurrentLine.Execute(this);
             while (Processing) await Task.Delay(RefreshTime);
