@@ -17,8 +17,10 @@ namespace StoryParser
                     throw new ArgumentException(string.Format("{0}条件声明有误", args), nameof(args));
                 conditions.Add(new Condition(infos[0], info[info.IndexOfAny(signals)], infos[1]));
             }
-        }
 
+            Mode = ExecuteMode.Next;
+        }
+        public override ExecuteMode Mode { get; init; }
         public override void Execute(Executor executor)
         {
             if (conditions.Count == 0 || conditions.All(Meet))

@@ -17,7 +17,12 @@ namespace StoryParser
         public static readonly Dictionary<string, Locator> Tags;
         public static event Action? Loading;
         public static event Action? Loaded;
-        private static readonly char[] activeSigns = new[] { 'Y', 'y', '是' };
+        private static readonly char[] disableSigns = new[] { 'Y', 'y', 'T', 't', '是' };
+        private static void AddLine(File file, string line)
+        {
+            if (line[0] == Separators.COMMENT || disableSigns.Contains(line[0])) return;
+            file.AddLine(line[1..]);
+        }
         /// <summary>
         /// 异步读取指定中间文件
         /// </summary>
@@ -32,7 +37,7 @@ namespace StoryParser
             using (StreamReader sr = new StreamReader(stream, encoding))
             {
                 string? line;
-                await Task.Run(() => { while ((line = sr.ReadLine()) != null) file.AddLine(line); });
+                await Task.Run(() => { while ((line = sr.ReadLine()) != null) AddLine(file, line); });
             }
             Loaded?.Invoke();
         }
@@ -46,7 +51,7 @@ namespace StoryParser
             Loading?.Invoke();
             File file = new();
             Current.Add(name, file);
-            await Task.Run(() => { foreach (string line in content) file.AddLine(line); });
+            await Task.Run(() => { foreach (string line in content) AddLine(file, line); });
             Loaded?.Invoke();
         }
         /// <summary>
@@ -64,7 +69,7 @@ namespace StoryParser
             using (StreamReader sr = new StreamReader(stream, encoding))
             {
                 string? line;
-                while ((line = sr.ReadLine()) != null) file.AddLine(line);
+                while ((line = sr.ReadLine()) != null) AddLine(file, line);
             }
             Loaded?.Invoke();
         }
@@ -78,7 +83,7 @@ namespace StoryParser
             Loading?.Invoke();
             File file = new();
             Current.Add(name, file);
-            foreach (string line in content) file.AddLine(line);
+            foreach (string line in content) AddLine(file, line);
             Loaded?.Invoke();
         }
     }

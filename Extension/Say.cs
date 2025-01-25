@@ -13,8 +13,9 @@ namespace StoryParser
             character = args[1];
             sprite = args[2];
             dialogue = args[3];
+            Mode = ExecuteMode.Pause;
         }
-
+        public override ExecuteMode Mode { get; init; }
         public override void Execute(Executor executor)
         {
             var matches = Regex.Matches(dialogue, @"(?<=\{)[^}]*(?=\})").Cast<Match>().ToList();

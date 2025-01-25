@@ -14,8 +14,10 @@ namespace StoryParser
             key = args[2];
             var1 = args[3];
             var2 = args[4];
-        }
 
+            Mode = ExecuteMode.Next;
+        }
+        public override ExecuteMode Mode { get; init; }
         public override void Execute(Executor executor)
         {
             float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.GetValue<float>(var1);
