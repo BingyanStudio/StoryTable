@@ -8,6 +8,10 @@ namespace StoryParser
         public Locator Position { get; private set; }
         private int count;
         /// <summary>
+        /// <see cref="Process"/>中的刷新时间，单位是毫秒
+        /// </summary>
+        public int RefreshTime { get; set; } = 10;
+        /// <summary>
         /// 正在处理语句中
         /// </summary>
         public bool Processing => count > 0;
@@ -101,7 +105,7 @@ namespace StoryParser
             Launch(CurrentLine.Length);
             Skip = false;
             CurrentLine.Execute(this);
-            while (Processing) await Task.Delay(10);
+            while (Processing) await Task.Delay(RefreshTime);
             LineProcessed?.Invoke(Position);
             NextLine();
         }
