@@ -4,8 +4,17 @@ namespace StoryParser
     {
         internal Line(string line)
         {
-            statement = StatementFactory.Create(line);
+            int index = line.IndexOf(Separators.STATEMENT);
+            if (index == -1) throw new ArgumentException("Invalid Statement");
+            statement = StatementFactory.Create(line[(index + 1)..]);
             if (statement != null) mode = statement.Mode;
+            if (index > 0) mode = line[..index] switch
+            {
+                "Next" => ExecuteMode.Next,
+                "Lock" => ExecuteMode.Lock,
+                "Pause" => ExecuteMode.Pause,
+                _ => throw new ArgumentException("Invalid Argument")
+            };
         }
         private Line() { }
         internal static Line Empty => new();
