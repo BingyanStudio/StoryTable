@@ -101,9 +101,8 @@ namespace StoryParser
         private async Task Process()
         {
             LineProcessing?.Invoke(Position);
-            count++;
             Skip = false;
-            CurrentLine.Execute(this);
+            while (CurrentLine.Execute(this)) count++;
             while (Processing) await Task.Delay(RefreshTime);
             LineProcessed?.Invoke(Position);
             NextLine();

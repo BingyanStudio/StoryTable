@@ -11,7 +11,20 @@ namespace StoryParser
         internal static Line Empty => new();
         private readonly Statement? statement;
         private readonly ExecuteMode mode;
-        internal void Execute(Executor executor) => statement?.Execute(executor);
+        internal bool Execute(Executor executor)
+        {
+            statement?.Execute(executor);
+            switch (mode)
+            {
+                case ExecuteMode.Pause:
+                    executor.Pause = true;
+                    return false;
+                case ExecuteMode.Lock:
+                    return false;
+                default:
+                    return true;
+            }
+        }
     }
     public class File
     {
