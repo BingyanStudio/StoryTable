@@ -11,8 +11,10 @@ namespace StoryParser
         static IntermediateFile()
         {
             Current = new();
+            Tags = new();
         }
         public static Dictionary<string, File> Current;
+        public static Dictionary<string, Locator> Tags;
         public static event Action? Loading;
         public static event Action? Loaded;
         /// <summary>
@@ -24,11 +26,12 @@ namespace StoryParser
         public async static void LoadAsync(string name, Stream stream, Encoding encoding)
         {
             Loading?.Invoke();
-            Current.Add(name, new());
+            File file = new();
+            Current.Add(name, file);
             using (StreamReader sr = new StreamReader(stream, encoding))
             {
                 string? line;
-                await Task.Run(() => { while ((line = sr.ReadLine()) != null) Current[name].AddLine(line); });
+                await Task.Run(() => { while ((line = sr.ReadLine()) != null) file.AddLine(line); });
             }
             Loaded?.Invoke();
         }
@@ -40,8 +43,9 @@ namespace StoryParser
         public async static void LoadAsync(string name, string[] content)
         {
             Loading?.Invoke();
-            Current.Add(name, new());
-            await Task.Run(() => { foreach (string line in content) Current[name].AddLine(line); });
+            File file = new();
+            Current.Add(name, file);
+            await Task.Run(() => { foreach (string line in content) file.AddLine(line); });
             Loaded?.Invoke();
         }
         /// <summary>
@@ -54,11 +58,12 @@ namespace StoryParser
         public static void Load(string name, Stream stream, Encoding encoding)
         {
             Loading?.Invoke();
-            Current.Add(name, new());
+            File file = new();
+            Current.Add(name, file);
             using (StreamReader sr = new StreamReader(stream, encoding))
             {
                 string? line;
-                while ((line = sr.ReadLine()) != null) Current[name].AddLine(line);
+                while ((line = sr.ReadLine()) != null) file.AddLine(line);
             }
             Loaded?.Invoke();
         }
@@ -70,8 +75,9 @@ namespace StoryParser
         public static void Load(string name, string[] content)
         {
             Loading?.Invoke();
-            Current.Add(name, new());
-            foreach (string line in content) Current[name].AddLine(line);
+            File file = new();
+            Current.Add(name, file);
+            foreach (string line in content) file.AddLine(line);
             Loaded?.Invoke();
         }
     }
