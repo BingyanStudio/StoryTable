@@ -5,15 +5,13 @@ namespace StoryParser
     {
         public Vary(string[] args) : base(args)
         {
-            if (args.Length != 5)
-                throw new ArgumentException(string.Format("{0}数组长度有误", args), nameof(args));
-            if (args[2] != "ADD" || args[2] != "SUB" || args[2] != "MUL" || args[2] != "DIV")
-                throw new ArgumentException(string.Format("{0}操作声明有误", args[2]));
+            if (args[1] != "ADD" || args[1] != "SUB" || args[1] != "MUL" || args[1] != "DIV")
+                throw new ArgumentException(string.Format("{0}操作声明有误", args[1]));
 
-            operation = args[1];
-            key = args[2];
-            var1 = args[3];
-            var2 = args[4];
+            operation = args[0];
+            key = args[1];
+            var1 = args[2];
+            var2 = args[3];
 
             Mode = ExecuteMode.Next;
         }

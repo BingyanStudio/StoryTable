@@ -7,8 +7,8 @@ namespace StoryParser
     {
         public Menu(string[] args) : base(args)
         {
-            content = args[1];
-            target = int.Parse(args[2]);
+            content = args[0];
+            target = int.Parse(args[1]);
 
             Mode = ExecuteMode.Next;
         }

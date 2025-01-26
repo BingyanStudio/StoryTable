@@ -5,18 +5,16 @@ namespace StoryParser
     {
         public If(string[] args) : base(args)
         {
-            if (args.Length != 3)
-                throw new ArgumentException(string.Format("{0}数组长度有误", args), nameof(args));
-
             conditions = new();
-            char[] signals = new char[] { '>', '<', '=' };
-            foreach (var info in args[1].Split(Separators.PARAMETER))
+            char[] signals = new[] { '>', '<', '=' };
+            foreach (var info in args[0].Split(Separators.PARAMETER))
             {
                 string[] infos = info.Split(signals);
                 if (infos.Length != 2)
                     throw new ArgumentException(string.Format("{0}条件声明有误", args), nameof(args));
-                conditions.Add(new Condition(infos[0], info[info.IndexOfAny(signals)], infos[1]));
+                conditions.Add(new(infos[0], info[info.IndexOfAny(signals)], infos[1]));
             }
+            target = args[1];
 
             Mode = ExecuteMode.Next;
         }
@@ -24,12 +22,13 @@ namespace StoryParser
         public override void Execute(Executor executor)
         {
             if (conditions.Count == 0 || conditions.All(Meet))
-                executor.Locate(target - 1);
+                if (IntermediateFile.Tags.TryGetValue(target, out Locator locator)) executor.Locate(locator);
+                else throw new KeyNotFoundException($"Tag {target} doesn't exist!");
             executor.Complete();
         }
 
         private readonly List<Condition> conditions;
-        private readonly int target;
+        private readonly string target;
         public readonly struct Condition
         {
             public Condition(string var1, char signal, string var2)
