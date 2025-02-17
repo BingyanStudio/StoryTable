@@ -5,8 +5,8 @@ namespace StoryParser
     {
         public Vary(string[] args) : base(args)
         {
-            if (args[1] != "ADD" || args[1] != "SUB" || args[1] != "MUL" || args[1] != "DIV")
-                throw new ArgumentException(string.Format("{0}操作声明有误", args[1]));
+            if (args[0] != "ADD" || args[0] != "SUB" || args[0] != "MUL" || args[0] != "DIV")
+                throw new ArgumentException(string.Format("{0}操作声明有误", args[0]));
 
             operation = args[0];
             key = args[1];
