@@ -1,6 +1,6 @@
 namespace StoryTable
 {
-    [Parse("IF")]
+    [Statement("IF")]
     public class If : Statement
     {
         public If(string[] args) : base(args)

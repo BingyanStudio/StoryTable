@@ -2,7 +2,7 @@ using System;
 
 namespace StoryTable
 {
-    [Parse("MENU")]
+    [Statement("MENU")]
     public class Menu : Statement
     {
         public Menu(string[] args) : base(args)

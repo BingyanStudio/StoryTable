@@ -1,9 +1,9 @@
 namespace StoryTable
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class ParseAttribute : Attribute
+    public class StatementAttribute : Attribute
     {
-        public ParseAttribute(string name)
+        public StatementAttribute(string name)
         {
             Name = name;
         }

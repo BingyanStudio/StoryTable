@@ -13,7 +13,7 @@ namespace StoryTable
         public abstract void Execute(Executor executor);
     }
 
-    [Parse("END")]
+    [Statement("END")]
     public class End : Statement
     {
         private readonly string result;

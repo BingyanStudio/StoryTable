@@ -12,7 +12,7 @@ namespace StoryTable
             {
                 foreach (var item in type.GetCustomAttributes(false))
                 {
-                    if (item is ParseAttribute parse)
+                    if (item is StatementAttribute parse)
                     {
                         statementTypes.Add(parse.Name, type);
                         break;

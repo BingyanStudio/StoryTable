@@ -1,6 +1,6 @@
 namespace StoryTable
 {
-    [Parse("VARY")]
+    [Statement("VARY")]
     public class Vary : Statement
     {
         public Vary(string[] args) : base(args)
