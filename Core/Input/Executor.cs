@@ -94,7 +94,7 @@ namespace StoryParser
             }
             if (Position.LineIndex == 0) FileProcessing?.Invoke();
             Executing?.Invoke();
-            Pause = Skip = false;
+            Pause = false;
             while (!Pause) await Process();
             Executed?.Invoke();
         }
@@ -103,6 +103,7 @@ namespace StoryParser
             LineProcessing?.Invoke(Position);
             Skip = false;
             while (CurrentLine.Execute(this)) count++;
+            count++;
             while (Processing) await Task.Delay(RefreshTime);
             LineProcessed?.Invoke(Position);
             NextLine();
