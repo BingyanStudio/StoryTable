@@ -5,10 +5,10 @@ namespace StoryTable
     [Statement("MENU")]
     public class Menu : Statement
     {
-        public Menu(string[] args) : base(args)
+        public Menu(ArgParser parser) : base(parser)
         {
-            content = args[0];
-            target = int.Parse(args[1]);
+            content = parser.String();
+            target = parser.Int();
 
             Mode = ExecuteMode.Next;
         }

@@ -26,7 +26,7 @@ namespace StoryTable
             var tokens = line.Split(Separators.STATEMENT);
             if (tokens.Length == 0) throw new ArgumentException("Invalid Statement");
             if (statementTypes.TryGetValue(tokens[0], out var type))
-                if (tokens.Length > 1) return Activator.CreateInstance(type, tokens[1..]) as Statement;
+                if (tokens.Length > 1) return Activator.CreateInstance(type, new ArgParser(tokens[1..], line)) as Statement;
                 else return Activator.CreateInstance(type, Array.Empty<string>()) as Statement;
             throw new KeyNotFoundException($"Statement Type {tokens[0]} Not Found");
         }

@@ -8,7 +8,7 @@ namespace StoryTable
     }
     public abstract class Statement
     {
-        public Statement(string[] args) { }
+        public Statement(ArgParser parser) { }
         public abstract ExecuteMode Mode { get; init; }
         public abstract void Execute(Executor executor);
     }
@@ -18,10 +18,11 @@ namespace StoryTable
     {
         private readonly string result;
 
-        public End(string[] args) : base(args)
+        public End(ArgParser parser) : base(parser)
         {
-            if (args.Length > 0) result = args[0];
-            else result = string.Empty;
+            // if (args.Length > 0) result = args[0];
+            // else result = string.Empty;
+            result = parser.String(true);
 
             Mode = ExecuteMode.Pause;
         }

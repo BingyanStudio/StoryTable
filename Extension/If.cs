@@ -3,18 +3,20 @@ namespace StoryTable
     [Statement("IF")]
     public class If : Statement
     {
-        public If(string[] args) : base(args)
+        public If(ArgParser parser) : base(parser)
         {
+            var cond = parser.Raw();
+            target = parser.String();
+
             conditions = new();
             char[] signals = new[] { '>', '<', '=' };
-            foreach (var info in args[0].Split(Separators.PARAMETER))
+            foreach (var info in cond.Split(Separators.PARAMETER))
             {
                 string[] infos = info.Split(signals);
                 if (infos.Length != 2)
-                    throw new ArgumentException(string.Format("{0}条件声明有误", args), nameof(args));
+                    throw new ArgumentException($"条件 {cond} 有误: ");
                 conditions.Add(new(infos[0], info[info.IndexOfAny(signals)], infos[1]));
             }
-            target = args[1];
 
             Mode = ExecuteMode.Next;
         }
@@ -23,7 +25,7 @@ namespace StoryTable
         {
             if (conditions.Count == 0 || conditions.All(Meet))
                 if (IntermediateFile.Tags.TryGetValue(target, out Locator locator)) executor.Locate(locator);
-                else throw new KeyNotFoundException($"Tag {target} doesn't exist!");
+                else throw new KeyNotFoundException($"未找到跳转标签 {target}");
             executor.Complete();
         }
 

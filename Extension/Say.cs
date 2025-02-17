@@ -5,11 +5,11 @@ namespace StoryTable
     [Statement("SAY")]
     public class Say : Statement
     {
-        public Say(string[] args) : base(args)
+        public Say(ArgParser parser) : base(parser)
         {
-            character = args[0];
-            sprite = args[1];
-            dialogue = args[2];
+            character = parser.String();
+            sprite = parser.String();
+            dialogue = parser.String();
 
             Mode = ExecuteMode.Pause;
         }
