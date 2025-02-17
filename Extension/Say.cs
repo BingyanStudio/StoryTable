@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace StoryParser
+namespace StoryTable
 {
     [Parse("SAY")]
     public class Say : Statement

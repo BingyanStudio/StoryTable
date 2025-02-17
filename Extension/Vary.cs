@@ -1,4 +1,4 @@
-namespace StoryParser
+namespace StoryTable
 {
     [Parse("VARY")]
     public class Vary : Statement

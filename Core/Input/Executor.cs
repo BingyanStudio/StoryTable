@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace StoryParser
+namespace StoryTable
 {
     public class Executor
     {

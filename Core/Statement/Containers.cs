@@ -1,4 +1,4 @@
-namespace StoryParser
+namespace StoryTable
 {
     public class Line
     {

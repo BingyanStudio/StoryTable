@@ -1,4 +1,4 @@
-namespace StoryParser
+namespace StoryTable
 {
     [Parse("IF")]
     public class If : Statement

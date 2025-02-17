@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Text;
 
-namespace StoryParser
+namespace StoryTable
 {
     public static class IntermediateFile
     {

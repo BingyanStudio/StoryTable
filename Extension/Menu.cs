@@ -1,6 +1,6 @@
 using System;
 
-namespace StoryParser
+namespace StoryTable
 {
     [Parse("MENU")]
     public class Menu : Statement

@@ -1,4 +1,4 @@
-namespace StoryParser
+namespace StoryTable
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ParseAttribute : Attribute
