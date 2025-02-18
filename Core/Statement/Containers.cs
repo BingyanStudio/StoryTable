@@ -9,13 +9,13 @@ namespace StoryTable
             statement = StatementFactory.Create(parser);
             this.mode = statement.Mode;
 
-            if (mode != string.Empty) this.mode = mode switch
-            {
-                "Next" => ExecuteMode.Next,
-                "Wait" => ExecuteMode.Wait,
-                "Pause" => ExecuteMode.Pause,
-                _ => throw new ArgumentException($"处理表格第 {IntermediateFile.TableLine} 行时出错: \n出现了Next, Wait, Pause之外的执行方式标识！")
-            };
+            if (mode != string.Empty) switch (mode)
+                {
+                    case "Next": this.mode = ExecuteMode.Next; break;
+                    case "Wait": this.mode = ExecuteMode.Wait; break;
+                    case "Pause": this.mode = ExecuteMode.Pause; break;
+                    default: parser.Err("出现了Next, Wait, Pause之外的执行方式标识！"); break;
+                }
         }
         private Line() { }
         internal static Line Empty => new();

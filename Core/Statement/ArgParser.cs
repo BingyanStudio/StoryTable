@@ -140,6 +140,6 @@ namespace StoryTable
 
         // 这里 dynamic 是为了回避显式类型转换
         public readonly void Err(string message)
-            => throw new ArgumentException(message);
+            => Provider.Log.Error($"处理表格第 {IntermediateFile.TableLine} 行时出错: \n{message}");
     }
 }

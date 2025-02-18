@@ -24,17 +24,14 @@ namespace StoryTable
         public static Statement Create(ArgParser parser)
         {
             string name = parser.String();
-            if(name == string.Empty) throw new ArgumentException($"处理表格第 {IntermediateFile.TableLine} 行时出错: \n指令名称为空！");
-            if (statementTypes.TryGetValue(name, out var type))
-                    try
-                    {
-                        return Activator.CreateInstance(type, parser) as Statement;
-                    }
-                    catch (ArgumentException e)
-                    {
-                        throw new ArgumentException($"处理表格第 {IntermediateFile.TableLine} 行时出错: \n{e.Message}");
-                    }
-            throw new KeyNotFoundException($"Statement Type {name} Not Found");
+            if (name == string.Empty)
+            {
+                parser.Err("语句名称为空！");
+                return null;
+            }
+            if (statementTypes.TryGetValue(name, out var type)) return Activator.CreateInstance(type, parser) as Statement;
+            parser.Err($"找不到{name}语句！");
+            return null;
         }
     }
 }

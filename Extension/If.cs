@@ -13,9 +13,8 @@ namespace StoryTable
             foreach (var info in cond.Split(Separators.PARAMETER))
             {
                 string[] infos = info.Split(signals);
-                if (infos.Length != 2)
-                    throw new ArgumentException($"条件 {cond} 有误: ");
-                conditions.Add(new(infos[0], info[info.IndexOfAny(signals)], infos[1]));
+                if (infos.Length != 2) parser.Err($"条件 {info} 有误！");
+                else conditions.Add(new(infos[0], info[info.IndexOfAny(signals)], infos[1]));
             }
 
             Mode = ExecuteMode.Next;
