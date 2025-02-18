@@ -2,24 +2,10 @@ namespace StoryTable
 {
     public static class Provider
     {
-        private static IVisualProvider visualProvider;
-        public static void SetVisual(IVisualProvider provider) => visualProvider = provider;
-        public static void Menu(string content, int target, Executor executor) => visualProvider.Menu(content, target, executor);
-        public static void Say(string character, string sprite, string dialogue, Executor executor) => visualProvider.Say(character, sprite, dialogue, executor);
-
-        private static IDataProvider dataProvider;
-        public static void SetData(IDataProvider provider) => dataProvider = provider;
-        public static T GetValue<T>(string key) => dataProvider.GetValue<T>(key);
-        public static void SetValue<T>(string key, T value) => dataProvider.SetValue(key, value);
-
-        private static IFileProvider fileProvider;
-        public static void SetFile(IFileProvider provider) => fileProvider = provider;
-
-        private static ILogProvider logProvider;
-        public static void SetLog(ILogProvider provider) => logProvider = provider;
-        public static void Message(string message) => logProvider.Message(message);
-        public static void Warning(string warning) => logProvider.Warning(warning);
-        public static void Error(string error) => logProvider.Error(error);
+        public static IVisualProvider Visual { get; set; }
+        public static IDataProvider Data { get; set; }
+        public static IFileProvider File { get; set; }
+        public static ILogProvider Log { get; set; }
     }
     /// <summary>
     /// 提供视觉表现相关的方法
