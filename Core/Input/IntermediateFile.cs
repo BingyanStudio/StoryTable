@@ -14,28 +14,40 @@ namespace StoryTable
             Tags = new();
         }
         public static readonly Dictionary<string, File> Current;
+
         public static readonly Dictionary<string, Locator> Tags;
-        public static event Action? Loading;
-        public static event Action? Loaded;
+
+        public static event Action Loading;
+        public static event Action Loaded;
+
+        public static string TableName { get; private set; }
+        public static int TableLine { get; private set; }
+
         private static readonly char[] disableSigns = new[] { 'Y', 'y', 'T', 't', '是' };
-        private static string? fileName;
+
+        private static string fileName;
         private static int lineIndex;
         private static void AddLine(File file, string line)
         {
-            if (line == "") throw new ArgumentException("Invalid Statement");
-            if (line[0] == Separators.COMMENT || disableSigns.Contains(line[0])) return;
+            TableLine++;
+
+            if (line == string.Empty || line[0] == Separators.COMMENT || disableSigns.Contains(line[0])) return;
             lineIndex++;
             line = line[1..];
-            int index = line.IndexOf(Separators.STATEMENT);
-            if (index == -1) throw new ArgumentException("Invalid Statement");
-            if (index > 0) Tags.Add(line[..index], new(fileName!, lineIndex));
-            line = line[(index + 1)..];
-            file.AddLine(line);
+
+            ArgParser parser = new(line.Split(Separators.STATEMENT));
+            string tag = parser.String();
+            if (tag != string.Empty) Tags.Add(tag, new(fileName!, lineIndex));
+            file.AddLine(parser);
         }
         private static File CreateFile(string name)
         {
             Loading?.Invoke();
+
             fileName = name;
+            TableName = name;
+            TableLine = 0;
+
             File file = new();
             Current.Add(name, file);
             return file;

@@ -26,31 +26,31 @@ namespace StoryTable
         /// <summary>
         /// 开始处理文件
         /// </summary>
-        public event Action? FileProcessing;
+        public event Action FileProcessing;
         /// <summary>
         /// 文件处理完毕
         /// </summary>
-        public event Action? FileProcessed;
+        public event Action FileProcessed;
         /// <summary>
         /// 执行了End语句
         /// </summary>
-        public event Action<string>? End;
+        public event Action<string> End;
         /// <summary>
         /// 开始执行一系列语句
         /// </summary>
-        public event Action? Executing;
+        public event Action Executing;
         /// <summary>
         /// 一系列语句执行完毕
         /// </summary>
-        public event Action? Executed;
+        public event Action Executed;
         /// <summary>
         /// 开始处理一行语句
         /// </summary>
-        public event Action<Locator>? LineProcessing;
+        public event Action<Locator> LineProcessing;
         /// <summary>
         /// 一行语句处理完毕
         /// </summary>
-        public event Action<Locator>? LineProcessed;
+        public event Action<Locator> LineProcessed;
         public Line CurrentLine =>
             IntermediateFile.Current[Position.FileName][Position.LineIndex];
         public File CurrentFile =>

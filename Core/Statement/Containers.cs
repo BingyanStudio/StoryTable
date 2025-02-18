@@ -2,23 +2,24 @@ namespace StoryTable
 {
     public class Line
     {
-        internal Line(string line)
+        internal Line(ArgParser parser)
         {
-            int index = line.IndexOf(Separators.STATEMENT);
-            if (index == -1) throw new ArgumentException("Invalid Statement");
-            statement = StatementFactory.Create(line[(index + 1)..]);
-            if (statement != null) mode = statement.Mode;
-            if (index > 0) mode = line[..index] switch
+            string mode = parser.String();
+
+            statement = StatementFactory.Create(parser);
+            this.mode = statement.Mode;
+
+            if (mode != string.Empty) this.mode = mode switch
             {
                 "Next" => ExecuteMode.Next,
-                "Lock" => ExecuteMode.Lock,
+                "Wait" => ExecuteMode.Wait,
                 "Pause" => ExecuteMode.Pause,
-                _ => throw new ArgumentException("Invalid Argument")
+                _ => throw new ArgumentException($"处理表格第 {IntermediateFile.TableLine} 行时出错: \n出现了Next, Wait, Pause之外的执行方式标识！")
             };
         }
         private Line() { }
         internal static Line Empty => new();
-        private readonly Statement? statement;
+        private readonly Statement statement;
         private readonly ExecuteMode mode;
         internal bool Execute(Executor executor)
         {
@@ -28,7 +29,7 @@ namespace StoryTable
                 case ExecuteMode.Pause:
                     executor.Pause = true;
                     return false;
-                case ExecuteMode.Lock:
+                case ExecuteMode.Wait:
                     return false;
                 default:
                     return true;
@@ -39,7 +40,7 @@ namespace StoryTable
     {
         private readonly List<Line> lines = new() { Line.Empty };
         public int Length => lines.Count;
-        internal void AddLine(string line) => lines.Add(new Line(line));
+        internal void AddLine(ArgParser parser) => lines.Add(new(parser));
         public Line this[int index] => lines[index];
     }
 }

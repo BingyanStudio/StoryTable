@@ -3,7 +3,7 @@ namespace StoryTable
     public enum ExecuteMode
     {
         Next, // 立刻执行下一句
-        Lock, // 等待当前语句执行结束
+        Wait, // 等待当前语句执行结束
         Pause, // 等待用户输入
     }
     public abstract class Statement

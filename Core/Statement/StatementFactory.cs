@@ -21,20 +21,20 @@ namespace StoryTable
             }
         }
 
-        public static Statement? Create(string line)
+        public static Statement Create(ArgParser parser)
         {
-            var tokens = line.Split(Separators.STATEMENT);
-            if (tokens.Length == 0) throw new ArgumentException("Invalid Statement");
-            if (statementTypes.TryGetValue(tokens[0], out var type))
+            string name = parser.String();
+            if(name == string.Empty) throw new ArgumentException($"处理表格第 {IntermediateFile.TableLine} 行时出错: \n指令名称为空！");
+            if (statementTypes.TryGetValue(name, out var type))
                     try
                     {
-                        return Activator.CreateInstance(type, new ArgParser(tokens[1..])) as Statement;
+                        return Activator.CreateInstance(type, parser) as Statement;
                     }
                     catch (ArgumentException e)
                     {
-                        throw new ArgumentException($"处理表格第 {line} 行时出错: \n{e.Message}");
+                        throw new ArgumentException($"处理表格第 {IntermediateFile.TableLine} 行时出错: \n{e.Message}");
                     }
-            throw new KeyNotFoundException($"Statement Type {tokens[0]} Not Found");
+            throw new KeyNotFoundException($"Statement Type {name} Not Found");
         }
     }
 }
