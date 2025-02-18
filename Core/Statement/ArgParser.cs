@@ -1,7 +1,9 @@
+
+using System.Reflection;
+
 /// <summary>
 /// 参数解析工具函数
 /// </summary>
-
 namespace StoryTable
 {
     public struct ArgParser
@@ -84,31 +86,54 @@ namespace StoryTable
             return arg;
         }
 
-        public T Enum<T>(bool nullable = false) where T : struct
+        private static readonly Dictionary<Type, Dictionary<string, Enum>> enumCache = new();
+
+        private static Dictionary<string, Enum> BuildEnumCache<T>() where T : Enum
         {
-            // TODO: 使用 Attribute + 字典 标记枚举的字符串映射，并用静态字典缓存起来提高映射速度
-            return default;
-            
-            // var idx = currentIndex;
-            // currentIndex++;
+            var map = new Dictionary<string, Enum>();
+            foreach (T e in System.Enum.GetValues(typeof(T)))
+            {
+                map.Add(e.ToString().ToLower(), e);
 
-            // if (currentArgs.Length <= idx)
-            //     if (!nullable) return Err($"参数不足！数量: {currentArgs.Length}, 应当至少有 {currentIndex} 个");
-            //     else return default;
+                var members = e.GetType().GetMember(e.ToString());
+                AliasAttribute attr;
+                if (members.Length > 0 && (attr = members[0].GetCustomAttribute<AliasAttribute>(true)) != null)
+                    foreach (var alia in attr.Alias)
+                        if (!map.TryAdd(alia, e))
+                            throw new InvalidDataException($"枚举别名 {alia} 被同时分配给了 {e} 和 {map[alia]}");
+            }
+            enumCache[typeof(T)] = map;
+            return map;
+        }
 
-            // // To PascalCase
-            // var key = currentArgs[idx].ToLower();
-            // key = $"{char.ToUpper(key[0])}{key[1..]}";
+        public T Enum<T>() where T : Enum
+        {
+            if (!enumCache.TryGetValue(typeof(T), out Dictionary<string, Enum> map))
+                map = BuildEnumCache<T>();
 
-            // if (System.Enum.TryParse(key, out T result)) return result;
-            // else
-            // {
-            //     var sb = new System.Text.StringBuilder($"解析失败！参数 {currentArgs[idx]} 不是 ");
-            //     foreach (T e in System.Enum.GetValues(typeof(T))) sb.Append($"{e}, ");
-            //     sb.Remove(sb.Length - 2, 2);
-            //     sb.Append(" 中的任意一项");
-            //     return Err(sb.ToString());
-            // }
+            if (!Parse(out var arg))
+            {
+                Err($"参数为空值");
+                return default;
+            }
+
+            if (map.TryGetValue(arg, out var val)) return (T)val;
+            else { Err($"{arg} 应当为 {string.Join(", ", map.Keys)} 中的一项"); return default; }
+        }
+
+        public T EnumOr<T>(T defaultValue) where T : Enum
+        {
+            if (!enumCache.TryGetValue(typeof(T), out Dictionary<string, Enum> map))
+                map = BuildEnumCache<T>();
+
+            if (!Parse(out var arg))
+            {
+                Err($"参数为空值");
+                return defaultValue;
+            }
+
+            if (map.TryGetValue(arg, out var val)) return (T)val;
+            else { Err($"{arg} 应当为 {string.Join(", ", map.Keys)} 中的一项"); return defaultValue; }
         }
 
         public string Raw() => currentArgs[currentIndex++];
