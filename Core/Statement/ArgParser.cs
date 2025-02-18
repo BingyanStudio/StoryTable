@@ -7,14 +7,11 @@ namespace StoryTable
     public struct ArgParser
     {
         internal readonly string[] currentArgs;
-        internal readonly string line;
         internal int currentIndex;
 
-        internal ArgParser(string[] args, string line)
+        internal ArgParser(string[] args)
         {
             currentArgs = args;
-
-            this.line = line;
             currentIndex = 0;
         }
 
@@ -86,6 +83,6 @@ namespace StoryTable
 
         // 这里 dynamic 是为了回避显式类型转换
         public readonly dynamic Err(string message)
-            => throw new ArgumentException($"解析第 {line} 行出错: \n{message}");
+            => throw new ArgumentException(message);
     }
 }
