@@ -15,74 +15,106 @@ namespace StoryTable
             currentIndex = 0;
         }
 
-        public int Int(bool nullable = false)
+        /// <summary>
+        /// 获取参数并将 currentIndex 向下推进
+        /// </summary>
+        /// <param name="arg">获取的参数</param>
+        /// <returns>参数是否不为空</returns>
+        private bool Parse(out string arg)
         {
-            var idx = currentIndex;
+            arg = string.Empty;
             currentIndex++;
 
-            if (currentArgs.Length <= idx)
-                if (!nullable) return Err($"参数不足！数量: {currentArgs.Length}, 应当至少有 {currentIndex} 个");
-                else return 0;
-
-
-            if (int.TryParse(currentArgs[idx], out int result)) return result;
-            else return Err($"解析失败！参数 {currentArgs[idx]} 不是整数");
+            if (currentArgs.Length <= currentIndex - 1) return false;
+            arg = currentArgs[currentIndex - 1];
+            return arg.Length > 0;
         }
 
-        public float Float(bool nullable = false)
+        public int Int()
         {
-            var idx = currentIndex;
-            currentIndex++;
+            if (!Parse(out var arg))
+            {
+                Err($"参数为空值");
+                return 0;
+            }
 
-            if (currentArgs.Length <= idx)
-                if (!nullable) return Err($"参数不足！数量: {currentArgs.Length}, 应当至少有 {currentIndex} 个");
-                else return 0;
-
-
-            if (float.TryParse(currentArgs[idx], out float result)) return result;
-            else return Err($"解析失败！参数 {currentArgs[idx]} 不是整数");
+            if (int.TryParse(arg, out int result)) return result;
+            else { Err($"{arg} 不是整数"); return 0; }
         }
 
-        public string String(bool nullable = false)
+        public int IntOr(int defaultValue)
         {
-            var idx = currentIndex;
-            currentIndex++;
+            if (!Parse(out var arg)) return defaultValue;
+            if (int.TryParse(arg, out int result)) return result;
+            else { Err($"{arg} 不是整数"); return defaultValue; }
+        }
 
-            if (currentArgs.Length <= idx)
-                if (!nullable) return Err($"参数不足！数量: {currentArgs.Length}, 应当至少有 {currentIndex} 个");
-                else return string.Empty;
+        public float Float()
+        {
+            if (!Parse(out var arg))
+            {
+                Err($"参数为空值");
+                return 0;
+            }
 
-            return currentArgs[idx];
+            if (float.TryParse(arg, out float result)) return result;
+            else { Err($"{arg} 不是小数"); return 0; }
+        }
+
+        public float FloatOr(float defaultValue)
+        {
+            if (!Parse(out var arg)) return defaultValue;
+            if (float.TryParse(arg, out float result)) return result;
+            else { Err($"{arg} 不是小数"); return defaultValue; }
+        }
+
+        public string String()
+        {
+            if (!Parse(out var arg))
+            {
+                Err($"参数为空值");
+                return string.Empty;
+            }
+            return arg;
+        }
+
+        public string StringOr(string defaultValue)
+        {
+            if (!Parse(out var arg)) return defaultValue;
+            return arg;
         }
 
         public T Enum<T>(bool nullable = false) where T : struct
         {
-            var idx = currentIndex;
-            currentIndex++;
+            // TODO: 使用 Attribute + 字典 标记枚举的字符串映射，并用静态字典缓存起来提高映射速度
+            return default;
+            
+            // var idx = currentIndex;
+            // currentIndex++;
 
-            if (currentArgs.Length <= idx)
-                if (!nullable) return Err($"参数不足！数量: {currentArgs.Length}, 应当至少有 {currentIndex} 个");
-                else return default;
+            // if (currentArgs.Length <= idx)
+            //     if (!nullable) return Err($"参数不足！数量: {currentArgs.Length}, 应当至少有 {currentIndex} 个");
+            //     else return default;
 
-            // To PascalCase
-            var key = currentArgs[idx].ToLower();
-            key = $"{char.ToUpper(key[0])}{key[1..]}";
+            // // To PascalCase
+            // var key = currentArgs[idx].ToLower();
+            // key = $"{char.ToUpper(key[0])}{key[1..]}";
 
-            if (System.Enum.TryParse(key, out T result)) return result;
-            else
-            {
-                var sb = new System.Text.StringBuilder($"解析失败！参数 {currentArgs[idx]} 不是 ");
-                foreach (T e in System.Enum.GetValues(typeof(T))) sb.Append($"{e}, ");
-                sb.Remove(sb.Length - 2, 2);
-                sb.Append(" 中的任意一项");
-                return Err(sb.ToString());
-            }
+            // if (System.Enum.TryParse(key, out T result)) return result;
+            // else
+            // {
+            //     var sb = new System.Text.StringBuilder($"解析失败！参数 {currentArgs[idx]} 不是 ");
+            //     foreach (T e in System.Enum.GetValues(typeof(T))) sb.Append($"{e}, ");
+            //     sb.Remove(sb.Length - 2, 2);
+            //     sb.Append(" 中的任意一项");
+            //     return Err(sb.ToString());
+            // }
         }
 
         public string Raw() => currentArgs[currentIndex++];
 
         // 这里 dynamic 是为了回避显式类型转换
-        public readonly dynamic Err(string message)
+        public readonly void Err(string message)
             => throw new ArgumentException(message);
     }
 }

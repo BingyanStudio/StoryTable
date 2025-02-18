@@ -22,7 +22,7 @@ namespace StoryTable
         {
             // if (args.Length > 0) result = args[0];
             // else result = string.Empty;
-            result = parser.String(true);
+            result = parser.StringOr(string.Empty);
 
             Mode = ExecuteMode.Pause;
         }
