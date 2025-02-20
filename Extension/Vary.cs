@@ -24,9 +24,9 @@ namespace StoryTable
         public override ExecuteMode Mode { get; init; }
         public override void Execute(Executor executor)
         {
-            float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.Data.GetValue<float>(var1);
-            float v2 = float.TryParse(var1, out float f2) ? f2 : Provider.Data.GetValue<float>(var2);
-            Provider.Data.SetValue(key, (int)(.5f + operation switch
+            float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.Data.GetInt(var1);
+            float v2 = float.TryParse(var1, out float f2) ? f2 : Provider.Data.GetInt(var2);
+            Provider.Data.SetInt(key, (int)(.5f + operation switch
             {
                 Operation.Add => v1 + v2,
                 Operation.Sub => v1 - v2,

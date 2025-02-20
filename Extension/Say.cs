@@ -20,7 +20,7 @@ namespace StoryTable
             var matches = Regex.Matches(dialogue, @"(?<=\{)[^}]*(?=\})").Cast<Match>().ToList();
             string copy = dialogue;
             foreach (var match in matches)
-                copy = copy.Replace("{" + match + "}", Provider.Data.GetValue<string>(match.ToString()));
+                copy = copy.Replace("{" + match + "}", Provider.Data.GetString(match.ToString()));
             Provider.Visual.Say(character, sprite, copy, executor);
         }
 

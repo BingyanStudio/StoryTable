@@ -20,12 +20,14 @@ namespace StoryTable
     /// <summary>
     /// 提供数据存取相关的方法
     /// <br/>通过<see cref="GetValue{T}(string)"/>读取数据
-    /// <br/>通过<see cref="SetValue{T}(string, T)"/>存储数据
+    /// <br/>通过<see cref="SetInt(string, int)"/>存储数据
     /// </summary>
     public interface IDataProvider
     {
-        T GetValue<T>(string key);
-        void SetValue<T>(string key, T value);
+        int GetInt(string key);
+        void SetInt(string key, int value);
+        string GetString(string key);
+        void SetString(string key, string value);
     }
     public interface IFileProvider
     {

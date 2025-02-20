@@ -48,9 +48,9 @@ namespace StoryTable
         private bool Meet(Condition condition)
         {
             if (!float.TryParse(condition.Var1, out float v1))
-                v1 = Provider.Data.GetValue<float>(condition.Var1);
+                v1 = Provider.Data.GetInt(condition.Var1);
             if (!float.TryParse(condition.Var2, out float v2))
-                v2 = Provider.Data.GetValue<float>(condition.Var2);
+                v2 = Provider.Data.GetInt(condition.Var2);
             return condition.Signal switch
             {
                 '>' => v1 - v2 > 0,

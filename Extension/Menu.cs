@@ -13,7 +13,11 @@ namespace StoryTable
             Mode = ExecuteMode.Next;
         }
         public override ExecuteMode Mode { get; init; }
-        public override void Execute(Executor executor) => Provider.Visual.Menu(content, target, executor);
+        public override void Execute(Executor executor)
+        {
+            Provider.Visual.Menu(content, target, executor);
+            executor.Complete();
+        }
         private readonly string content;
         private readonly int target;
     }
