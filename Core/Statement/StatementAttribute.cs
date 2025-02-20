@@ -1,3 +1,5 @@
+using System;
+
 namespace StoryTable
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]

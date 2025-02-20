@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace StoryTable
 {
     public class Line
