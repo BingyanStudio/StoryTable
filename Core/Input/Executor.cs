@@ -62,6 +62,12 @@ namespace StoryTable
         public void Locate(int lineIndex)
             => Position = new Locator(Position.FileName, lineIndex);
         /// <summary>
+        /// 定位到指定文件首行
+        /// </summary>
+        /// <param name="fileName">指定文件</param>
+        public void Locate(string fileName)
+            => Position = new Locator(fileName, 1);
+        /// <summary>
         /// 定位到指定文件的指定行数
         /// </summary>
         /// <param name="fileName">目标文件名称</param>
