@@ -8,15 +8,16 @@ namespace StoryTable
         public MenuStatement(ArgParser parser) : base(parser)
         {
             content = parser.String();
-            target = parser.Int();
+            target = parser.String();
         }
         public override ExecuteMode Mode => ExecuteMode.Next;
         public override void Execute(Executor executor)
         {
-            Provider.Visual.Menu(content, target, executor);
-            executor.Complete();
+            if (!IntermediateFile.Tags.TryGetValue(target, out Locator locator))
+                throw new KeyNotFoundException($"未找到跳转标签 {target}");
+            Provider.Visual.Menu(content, locator, executor);
         }
         private readonly string content;
-        private readonly int target;
+        private readonly string target;
     }
 }
