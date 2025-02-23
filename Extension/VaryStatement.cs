@@ -1,9 +1,9 @@
 namespace StoryTable
 {
     [Statement("VARY")]
-    public class Vary : Statement
+    public class VaryStatement : Statement
     {
-        public Vary(ArgParser parser) : base(parser)
+        public VaryStatement(ArgParser parser) : base(parser)
         {
             // if (args[0] != "ADD" || args[0] != "SUB" || args[0] != "MUL" || args[0] != "DIV")
             //     throw new ArgumentException(string.Format("{0}操作声明有误", args[0]));

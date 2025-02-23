@@ -4,9 +4,9 @@ using System.Linq;
 namespace StoryTable
 {
     [Statement("SAY")]
-    public class Say : Statement
+    public class SayStatement : Statement
     {
-        public Say(ArgParser parser) : base(parser)
+        public SayStatement(ArgParser parser) : base(parser)
         {
             character = parser.String();
             sprite = parser.String();

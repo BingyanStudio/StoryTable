@@ -24,7 +24,7 @@ namespace StoryTable
         public static string TableName { get; private set; }
         public static int TableLine { get; private set; }
 
-        private static readonly char[] disableSigns = new[] { 'Y', 'y', 'T', 't', '是',Separators.COMMENT };
+        private static readonly char[] disableSigns = new[] { 'Y', 'y', 'T', 't', '是', Separators.COMMENT };
 
         private static string fileName;
         private static int lineIndex;

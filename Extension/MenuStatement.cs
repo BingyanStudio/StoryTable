@@ -3,9 +3,9 @@ using System;
 namespace StoryTable
 {
     [Statement("MENU")]
-    public class Menu : Statement
+    public class MenuStatement : Statement
     {
-        public Menu(ArgParser parser) : base(parser)
+        public MenuStatement(ArgParser parser) : base(parser)
         {
             content = parser.String();
             target = parser.Int();

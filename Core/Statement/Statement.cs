@@ -14,11 +14,11 @@ namespace StoryTable
     }
 
     [Statement("END")]
-    public class End : Statement
+    public class EndStatement : Statement
     {
         private readonly string result;
 
-        public End(ArgParser parser) : base(parser)
+        public EndStatement(ArgParser parser) : base(parser)
         {
             // if (args.Length > 0) result = args[0];
             // else result = string.Empty;

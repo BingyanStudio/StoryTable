@@ -5,9 +5,9 @@ using System.Linq;
 namespace StoryTable
 {
     [Statement("IF")]
-    public class If : Statement
+    public class IfStatement : Statement
     {
-        public If(ArgParser parser) : base(parser)
+        public IfStatement(ArgParser parser) : base(parser)
         {
             var cond = parser.Raw();
             target = parser.String();
