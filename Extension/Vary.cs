@@ -17,11 +17,9 @@ namespace StoryTable
             key = parser.String();
             var1 = parser.String();
             var2 = parser.String();
-
-            Mode = ExecuteMode.Next;
         }
 
-        public override ExecuteMode Mode { get; init; }
+        public override ExecuteMode Mode => ExecuteMode.Next;
         public override void Execute(Executor executor)
         {
             float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.Data.GetInt(var1);

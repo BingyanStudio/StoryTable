@@ -9,7 +9,7 @@ namespace StoryTable
     public abstract class Statement
     {
         public Statement(ArgParser parser) { }
-        public abstract ExecuteMode Mode { get; init; }
+        public abstract ExecuteMode Mode { get; }
         public abstract void Execute(Executor executor);
     }
 
@@ -23,10 +23,8 @@ namespace StoryTable
             // if (args.Length > 0) result = args[0];
             // else result = string.Empty;
             result = parser.StringOr(string.Empty);
-
-            Mode = ExecuteMode.Pause;
         }
-        public override ExecuteMode Mode { get; init; }
+        public override ExecuteMode Mode => ExecuteMode.Pause;
         public override void Execute(Executor executor)
         {
             executor.EndWith(result);

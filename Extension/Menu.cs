@@ -9,10 +9,8 @@ namespace StoryTable
         {
             content = parser.String();
             target = parser.Int();
-
-            Mode = ExecuteMode.Next;
         }
-        public override ExecuteMode Mode { get; init; }
+        public override ExecuteMode Mode => ExecuteMode.Next;
         public override void Execute(Executor executor)
         {
             Provider.Visual.Menu(content, target, executor);

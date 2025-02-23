@@ -11,10 +11,8 @@ namespace StoryTable
             character = parser.String();
             sprite = parser.String();
             dialogue = parser.String();
-
-            Mode = ExecuteMode.Pause;
         }
-        public override ExecuteMode Mode { get; init; }
+        public override ExecuteMode Mode => ExecuteMode.Pause;
         public override void Execute(Executor executor)
         {
             var matches = Regex.Matches(dialogue, @"(?<=\{)[^}]*(?=\})").Cast<Match>().ToList();
