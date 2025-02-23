@@ -32,4 +32,37 @@ namespace StoryTable
             executor.Complete();
         }
     }
+
+    [Statement("FILE")]
+    public class FileStatement : Statement
+    {
+        private readonly string path;
+        public FileStatement(ArgParser parser) : base(parser)
+        {
+            path = parser.String();
+        }
+        public override ExecuteMode Mode => ExecuteMode.Next;
+        public override void Execute(Executor executor)
+        {
+            executor.Locate(path);
+            executor.Complete();
+        }
+    }
+
+    [Statement("TAG")]
+    public class TagStatement : Statement
+    {
+        private readonly string target;
+        public TagStatement(ArgParser parser) : base(parser)
+        {
+            target = parser.String();
+        }
+        public override ExecuteMode Mode => ExecuteMode.Next;
+        public override void Execute(Executor executor)
+        {
+            if (IntermediateFile.Tags.TryGetValue(target, out var locator)) executor.Locate(locator);
+            else throw new KeyNotFoundException($"未找到跳转标签 {target}");
+            executor.Complete();
+        }
+    }
 }
