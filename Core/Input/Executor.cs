@@ -96,7 +96,7 @@ namespace StoryTable
         internal void EndWith(string value) => End?.Invoke(value);
         public async void Execute()
         {
-            if (count > 0)
+            if (Processing)
             {
                 Skip = true;
                 return;
@@ -116,8 +116,12 @@ namespace StoryTable
         {
             LineProcessing?.Invoke(Position);
             Skip = false;
-            while (CurrentLine.Execute(this)) count++;
             count++;
+            while (CurrentLine.Execute(this))
+            {
+                count++;
+                NextLine();
+            }
             while (Processing) await Task.Delay(RefreshTime);
             LineProcessed?.Invoke(Position);
             NextLine();
