@@ -53,8 +53,16 @@ namespace StoryTable
         public event Action<Locator> LineProcessed;
         public Line CurrentLine =>
             IntermediateFile.Current[Position.FileName][Position.LineIndex];
-        public File CurrentFile =>
-            IntermediateFile.Current[Position.FileName];
+        public File CurrentFile
+        {
+            get
+            {
+                if (!IntermediateFile.Current.ContainsKey(Position.FileName)
+                    && !Provider.File.FindFile(Position.FileName))
+                    throw new KeyNotFoundException(Position.FileName);
+                return IntermediateFile.Current[Position.FileName];
+            }
+        }
         /// <summary>
         /// 定位到指定行数
         /// </summary>

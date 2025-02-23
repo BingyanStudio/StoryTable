@@ -29,9 +29,13 @@ namespace StoryTable
         string GetString(string key);
         void SetString(string key, string value);
     }
+    /// <summary>
+    /// 提供寻找文件相关的方法
+    /// <br/>通过<see cref="FindFile(string, string)"/>寻找文件
+    /// </summary>
     public interface IFileProvider
     {
-
+        bool FindFile(string name);
     }
     /// <summary>
     /// 提供打印日志相关的方法

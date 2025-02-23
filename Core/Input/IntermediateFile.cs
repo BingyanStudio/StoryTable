@@ -98,7 +98,7 @@ namespace StoryTable
             Loaded?.Invoke();
         }
         /// <summary>
-        /// 异步读取指定中间文件
+        /// 同步读取指定中间文件
         /// <param name="name">文件名（并非路径，只是用于标识）</param>
         /// <param name="content">文本内容</param>
         /// </summary>
