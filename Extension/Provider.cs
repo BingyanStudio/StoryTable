@@ -14,8 +14,8 @@ namespace StoryTable
     /// </summary>
     public interface IVisualProvider
     {
-        void Menu(string content, Locator target, Executor executor);
-        void Say(string character, string sprite, string dialogue, Executor executor);
+        void Menu(string content, Locator target, ExecutorBase executor);
+        void Say(string character, string sprite, string dialogue, ExecutorBase executor);
     }
     /// <summary>
     /// 提供数据存取相关的方法
@@ -35,7 +35,7 @@ namespace StoryTable
     /// </summary>
     public interface IFileProvider
     {
-        bool FindFile(string name);
+        bool Find(string name);
     }
     /// <summary>
     /// 提供打印日志相关的方法

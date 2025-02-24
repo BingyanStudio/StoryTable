@@ -22,7 +22,7 @@ namespace StoryTable
             }
         }
         public override ExecuteMode Mode => ExecuteMode.Next;
-        public override void Execute(Executor executor)
+        public override void Execute(ExecutorBase executor)
         {
             if (conditions.Count == 0 || conditions.All(Meet))
                 if (IntermediateFile.Tags.TryGetValue(target, out Locator locator)) executor.Locate(locator);

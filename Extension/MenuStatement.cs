@@ -11,7 +11,7 @@ namespace StoryTable
             target = parser.String();
         }
         public override ExecuteMode Mode => ExecuteMode.Next;
-        public override void Execute(Executor executor)
+        public override void Execute(ExecutorBase executor)
         {
             if (!IntermediateFile.Tags.TryGetValue(target, out Locator locator))
                 throw new KeyNotFoundException($"未找到跳转标签 {target}");

@@ -23,19 +23,10 @@ namespace StoryTable
         internal static Line Empty => new();
         private readonly Statement statement;
         private readonly ExecuteMode mode;
-        internal bool Execute(Executor executor)
+        internal ExecuteMode Execute(ExecutorBase executor)
         {
             statement?.Execute(executor);
-            switch (mode)
-            {
-                case ExecuteMode.Pause:
-                    executor.Pause = true;
-                    return false;
-                case ExecuteMode.Wait:
-                    return false;
-                default:
-                    return true;
-            }
+            return mode;
         }
     }
     public class File

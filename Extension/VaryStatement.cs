@@ -20,7 +20,7 @@ namespace StoryTable
         }
 
         public override ExecuteMode Mode => ExecuteMode.Next;
-        public override void Execute(Executor executor)
+        public override void Execute(ExecutorBase executor)
         {
             float v1 = float.TryParse(var1, out float f1) ? f1 : Provider.Data.GetInt(var1);
             float v2 = float.TryParse(var1, out float f2) ? f2 : Provider.Data.GetInt(var2);

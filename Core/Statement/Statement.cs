@@ -10,7 +10,7 @@ namespace StoryTable
     {
         public Statement(ArgParser parser) { }
         public abstract ExecuteMode Mode { get; }
-        public abstract void Execute(Executor executor);
+        public abstract void Execute(ExecutorBase executor);
     }
 
     [Statement("END")]
@@ -25,10 +25,9 @@ namespace StoryTable
             result = parser.StringOr(string.Empty);
         }
         public override ExecuteMode Mode => ExecuteMode.Pause;
-        public override void Execute(Executor executor)
+        public override void Execute(ExecutorBase executor)
         {
             executor.EndWith(result);
-            executor.Pause = true;
             executor.Complete();
         }
     }
@@ -42,7 +41,7 @@ namespace StoryTable
             path = parser.String();
         }
         public override ExecuteMode Mode => ExecuteMode.Next;
-        public override void Execute(Executor executor)
+        public override void Execute(ExecutorBase executor)
         {
             executor.Locate(path);
             executor.Complete();
@@ -58,7 +57,7 @@ namespace StoryTable
             target = parser.String();
         }
         public override ExecuteMode Mode => ExecuteMode.Next;
-        public override void Execute(Executor executor)
+        public override void Execute(ExecutorBase executor)
         {
             if (IntermediateFile.Tags.TryGetValue(target, out var locator)) executor.Locate(locator);
             else throw new KeyNotFoundException($"未找到跳转标签 {target}");
