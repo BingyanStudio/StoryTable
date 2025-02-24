@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace StoryTable
 {
     public enum ExecuteMode
