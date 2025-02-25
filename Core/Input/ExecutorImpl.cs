@@ -42,11 +42,12 @@ namespace StoryTable
             {
                 count++;
                 NextLine();
+                if (Position.LineIndex == CurrentFile.Length) break;
             }
             Pause = mode == ExecuteMode.Pause;
+            NextLine();
             while (Processing) await Task.Delay(RefreshTime);
             LineProcessed(Position);
-            NextLine();
         }
     }
 }
