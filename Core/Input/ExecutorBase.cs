@@ -5,6 +5,8 @@ namespace StoryTable
 {
     public abstract class ExecutorBase
     {
+        public Provider Provider { get; set; } = new();
+
         public Locator Position { get; protected set; }
         public abstract void Execute();
 

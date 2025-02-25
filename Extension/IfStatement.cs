@@ -24,7 +24,7 @@ namespace StoryTable
         public override ExecuteMode Mode => ExecuteMode.Next;
         public override void Execute(ExecutorBase executor)
         {
-            if (conditions.Count == 0 || conditions.All(Meet))
+            if (conditions.Count == 0 || conditions.All(c => Meet(c, executor)))
                 if (IntermediateFile.Tags.TryGetValue(target, out Locator locator)) executor.Locate(locator);
                 else throw new KeyNotFoundException($"未找到跳转标签 {target}");
             executor.Complete();
@@ -43,12 +43,12 @@ namespace StoryTable
             public readonly string Var1, Var2;
             public readonly char Signal;
         }
-        private bool Meet(Condition condition)
+        private bool Meet(Condition condition, ExecutorBase executor)
         {
             if (!float.TryParse(condition.Var1, out float v1))
-                v1 = Provider.Data.GetInt(condition.Var1);
+                v1 = executor.Provider.Data.GetInt(condition.Var1);
             if (!float.TryParse(condition.Var2, out float v2))
-                v2 = Provider.Data.GetInt(condition.Var2);
+                v2 = executor.Provider.Data.GetInt(condition.Var2);
             return condition.Signal switch
             {
                 '>' => v1 - v2 > 0,

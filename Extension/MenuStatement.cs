@@ -15,7 +15,7 @@ namespace StoryTable
         {
             if (!IntermediateFile.Tags.TryGetValue(target, out Locator locator))
                 throw new KeyNotFoundException($"未找到跳转标签 {target}");
-            Provider.Visual.Menu(content, locator, executor);
+            executor.Provider.Visual.Menu(content, locator, executor);
         }
         private readonly string content;
         private readonly string target;
