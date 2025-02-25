@@ -44,8 +44,8 @@ namespace StoryTable
                 NextLine();
                 if (Position.LineIndex == CurrentFile.Length) break;
             }
-            Pause = mode == ExecuteMode.Pause;
             NextLine();
+            Pause = mode == ExecuteMode.Pause;
             while (Processing) await Task.Delay(RefreshTime);
             LineProcessed(Position);
         }

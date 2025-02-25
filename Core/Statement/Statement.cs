@@ -61,7 +61,8 @@ namespace StoryTable
         public override ExecuteMode Mode => ExecuteMode.Next;
         public override void Execute(ExecutorBase executor)
         {
-            if (IntermediateFile.Tags.TryGetValue(target, out var locator)) executor.Locate(locator);
+            if (IntermediateFile.Tags.TryGetValue(target, out var locator))
+                executor.Locate(locator.FileName, locator.LineIndex - 1);
             else throw new KeyNotFoundException($"未找到跳转标签 {target}");
             executor.Complete();
         }
