@@ -23,7 +23,7 @@ namespace StoryTable
         public override void Execute(ExecutorBase executor)
         {
             float v1 = float.TryParse(var1, out float f1) ? f1 : executor.Provider.Data.GetInt(var1);
-            float v2 = float.TryParse(var1, out float f2) ? f2 : executor.Provider.Data.GetInt(var2);
+            float v2 = float.TryParse(var2, out float f2) ? f2 : executor.Provider.Data.GetInt(var2);
             executor.Provider.Data.SetInt(key, (int)(.5f + operation switch
             {
                 Operation.Add => v1 + v2,

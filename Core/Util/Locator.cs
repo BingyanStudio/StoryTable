@@ -7,7 +7,7 @@ namespace StoryTable
             FileName = name;
             LineIndex = index;
         }
-        public readonly string FileName;
-        public readonly int LineIndex;
+        public string FileName { get; init; }
+        public int LineIndex { get; init; }
     }
 }

@@ -36,14 +36,14 @@ namespace StoryTable
         {
             LineProcessing(Position);
             Skip = false;
-            count++;
             ExecuteMode mode;
             while ((mode = CurrentLine.Execute(this)) == ExecuteMode.Next)
             {
                 count++;
                 NextLine();
-                if (Position.LineIndex == CurrentFile.Length) break;
+                if (Position.LineIndex == CurrentFile.Length) return;
             }
+            count++;
             NextLine();
             Pause = mode == ExecuteMode.Pause;
             while (Processing) await Task.Delay(RefreshTime);
