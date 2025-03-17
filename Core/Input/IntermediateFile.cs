@@ -37,7 +37,7 @@ namespace StoryTable
             line = line[1..];
 
             ArgParser parser = new(line.Split(Separators.STATEMENT));
-            string tag = parser.String();
+            string tag = parser.StringOr(string.Empty);
             if (tag != string.Empty) Tags.Add(tag, new(fileName!, lineIndex));
             file.AddLine(parser);
         }

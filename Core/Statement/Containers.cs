@@ -6,7 +6,7 @@ namespace StoryTable
     {
         internal Line(ArgParser parser)
         {
-            string mode = parser.String();
+            string mode = parser.StringOr(string.Empty);
 
             statement = StatementFactory.Create(parser);
             this.mode = statement.Mode;
