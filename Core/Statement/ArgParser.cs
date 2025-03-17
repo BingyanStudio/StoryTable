@@ -118,6 +118,7 @@ namespace StoryTable
                 Err($"参数为空值");
                 return default;
             }
+            arg = arg.ToLower();
 
             if (map.TryGetValue(arg, out var val)) return (T)val;
             else { Err($"{arg} 应当为 {string.Join(", ", map.Keys)} 中的一项"); return default; }
@@ -133,6 +134,7 @@ namespace StoryTable
                 Err($"参数为空值");
                 return defaultValue;
             }
+            arg = arg.ToLower();
 
             if (map.TryGetValue(arg, out var val)) return (T)val;
             else { Err($"{arg} 应当为 {string.Join(", ", map.Keys)} 中的一项"); return defaultValue; }

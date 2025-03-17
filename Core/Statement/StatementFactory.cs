@@ -18,7 +18,7 @@ namespace StoryTable
                 {
                     if (item is StatementAttribute parse)
                     {
-                        statementTypes.Add(parse.Name, type);
+                        statementTypes.Add(parse.Name.ToLower(), type);
                         break;
                     }
                 }
@@ -33,7 +33,7 @@ namespace StoryTable
                 parser.Err("语句名称为空！");
                 return null;
             }
-            if (statementTypes.TryGetValue(name, out var type)) return Activator.CreateInstance(type, parser) as Statement;
+            if (statementTypes.TryGetValue(name.ToLower(), out var type)) return Activator.CreateInstance(type, parser) as Statement;
             parser.Err($"找不到{name}语句！");
             return null;
         }
