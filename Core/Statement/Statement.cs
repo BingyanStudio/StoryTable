@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace StoryTable
@@ -25,7 +24,9 @@ namespace StoryTable
         {
             result = parser.StringOr(string.Empty);
         }
+
         public override ExecuteMode Mode => ExecuteMode.Pause;
+
         public override void Execute(ExecutorBase executor)
         {
             executor.EndWith(result);
@@ -37,11 +38,14 @@ namespace StoryTable
     public class FileStatement : Statement
     {
         private readonly string path;
+
         public FileStatement(ArgParser parser) : base(parser)
         {
             path = parser.String();
         }
+
         public override ExecuteMode Mode => ExecuteMode.Next;
+
         public override void Execute(ExecutorBase executor)
         {
             executor.Locate(path);
@@ -53,11 +57,14 @@ namespace StoryTable
     public class TagStatement : Statement
     {
         private readonly string target;
+
         public TagStatement(ArgParser parser) : base(parser)
         {
             target = parser.String();
         }
+
         public override ExecuteMode Mode => ExecuteMode.Next;
+
         public override void Execute(ExecutorBase executor)
         {
             if (IntermediateFile.Tags.TryGetValue(target, out var locator))

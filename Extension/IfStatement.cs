@@ -21,7 +21,9 @@ namespace StoryTable
                 else conditions.Add(new(infos[0], info[info.IndexOfAny(signals)], infos[1]));
             }
         }
+
         public override ExecuteMode Mode => ExecuteMode.Next;
+
         public override void Execute(ExecutorBase executor)
         {
             if (conditions.Count == 0 || conditions.All(c => Meet(c, executor)))
@@ -32,6 +34,7 @@ namespace StoryTable
 
         private readonly List<Condition> conditions;
         private readonly string target;
+
         public readonly struct Condition
         {
             public Condition(string var1, char signal, string var2)
@@ -43,6 +46,7 @@ namespace StoryTable
             public readonly string Var1, Var2;
             public readonly char Signal;
         }
+
         private bool Meet(Condition condition, ExecutorBase executor)
         {
             if (!float.TryParse(condition.Var1, out float v1))
