@@ -5,14 +5,6 @@ namespace StoryTable
     {
         public VaryStatement(ArgParser parser) : base(parser)
         {
-            // if (args[0] != "ADD" || args[0] != "SUB" || args[0] != "MUL" || args[0] != "DIV")
-            //     throw new ArgumentException(string.Format("{0}操作声明有误", args[0]));
-
-            // operation = args[0];
-            // key = args[1];
-            // var1 = args[2];
-            // var2 = args[3];
-
             operation = parser.Enum<Operation>();
             key = parser.String();
             var1 = parser.String();

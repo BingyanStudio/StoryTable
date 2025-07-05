@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace StoryTable
@@ -22,8 +23,6 @@ namespace StoryTable
 
         public EndStatement(ArgParser parser) : base(parser)
         {
-            // if (args.Length > 0) result = args[0];
-            // else result = string.Empty;
             result = parser.StringOr(string.Empty);
         }
         public override ExecuteMode Mode => ExecuteMode.Pause;
