@@ -9,7 +9,7 @@ namespace StoryTable
         public SayStatement(ArgParser parser) : base(parser)
         {
             character = parser.String();
-            sprite = parser.String();
+            sprite = parser.StringOr(string.Empty);
             dialogue = parser.String();
         }
 
