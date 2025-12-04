@@ -11,11 +11,11 @@ namespace StoryTable
             statement = StatementFactory.Create(parser);
             this.mode = statement.Mode;
 
-            if (mode != string.Empty) switch (mode)
+            if (mode != string.Empty) switch (mode.ToLower())
                 {
-                    case "Next": this.mode = ExecuteMode.Next; break;
-                    case "Wait": this.mode = ExecuteMode.Wait; break;
-                    case "Pause": this.mode = ExecuteMode.Pause; break;
+                    case "next": this.mode = ExecuteMode.Next; break;
+                    case "wait": this.mode = ExecuteMode.Wait; break;
+                    case "pause": this.mode = ExecuteMode.Pause; break;
                     default: parser.Err("出现了Next, Wait, Pause之外的执行方式标识！"); break;
                 }
         }
