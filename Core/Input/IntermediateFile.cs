@@ -45,9 +45,8 @@ namespace StoryTable
         {
             Loading?.Invoke();
 
-            fileName = name;
-            TableName = name;
-            TableLine = 0;
+            fileName = TableName = name;
+            lineIndex = TableLine = 0;
 
             File file = new();
             Current.Add(name, file);

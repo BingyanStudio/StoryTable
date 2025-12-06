@@ -79,7 +79,7 @@ namespace StoryTable
                 Err($"参数为空值");
                 return string.Empty;
             }
-            return arg;
+            return arg.Trim();
         }
 
         public string StringOr(string defaultValue)
